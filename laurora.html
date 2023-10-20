@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>Event Driven (Midterm Exam)</title>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+		<style>
+         @import url('https://fonts.googleapis.com/css?family=Montserrat:400,500&display=swap');
+        
+		 body {
+         font-family: Montserrat,Arial, Helvetica, sans-serif;
+         background-color:#f7f7f7;
+         }
+		 
+         * {box-sizing: border-box}
+         /* Add padding to container elements */
+         form {
+         padding: 20px;
+         width:100%;
+         background:white;
+         }
+         /* Full-width input fields */
+         input[type=text], input[type=number], select {
+         width: 100%;
+         padding: 10px;
+         margin: 5px 0 22px 0;
+         display: inline-block;
+         border: none;
+         background: #f7f7f7;
+         font-family: Montserrat,Arial, Helvetica, sans-serif;
+         }
+		 
+       
+         input[type=phone], select {
+         width: 100%;
+         padding: 15px;
+         margin: 5px 0 22px 0;
+         display: inline-block;
+         border: none;
+         background: #f7f7f7;
+         }
+         /* Set a style for all buttons */
+         button {
+         background-color: #0eb7f4;
+         color: white;
+         padding: 14px 20px;
+         margin: 8px 0;
+         border: none;
+         cursor: pointer;
+         width: 100%;
+         opacity: 0.9;
+         font-size:16px;
+         font-family: Montserrat,Arial, Helvetica, sans-serif;
+         border-radius:10px;
+         }
+         button:hover {
+         opacity:1;
+         }
+         .ptag{
+         color: red;
+         }
+         /* Change styles for signup button on extra small screens */
+         @media screen and (max-width: 300px) {
+         .signupbtn {
+         width: 100%;
+         }
+         }
+      </style>
+	</head>
+	<body class = "p-5">
+		<div class = "row">
+         <div class = "col-lg-4">
+            <form onsubmit = "event.preventDefault()">
+                 <h3>Product Management</h3>
+                  <p>* - Required Fields</p>
+                  
+				  <label for="prodid"><b>Product ID <span class = 'text-danger'>*</span></b></label>
+                  <input  type="text" readonly value = "EVNT-DRV-1" id="prodID">
+                  
+				  
+				  <label for="prodname"><b>Product Name <span class = 'text-danger'>*</span></b></label>
+                  <input type="text" id="prodName">
+				  
+				  
+				   <label for="prodcategory"><b>Cetegory<span class = 'text-danger'>*</span></b></label>
+				<select id = "prodcategory">
+					<option>--Select Category--</option>
+					<option>Food and Beverage</option>
+					<option>Kitchen Appliances</option>
+					<option>IT Equipment</option>
+					<option>Shoes and Clothing</option>
+				</select>
+				
+				
+				 <label for="sellprice"><b>Selling Price <span class = 'text-danger'>*</span></b></label>
+                  <input type="number" id = "sellprice" name="sellprice"   >
+				  
+				 
+				  <button class="bg-primary btn-sm" type = 'submit' onclick="button()">Save</button>
+        
+		      </form>
+			  
+			  	
+         </div>
+         <div class = "col-lg-8">
+		 
+		 <div class="row mb-4">
+            <div class="col-xl-3 col-lg-6">
+              <div class="card card-stats mb-4 mb-xl-0 rounded-0">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <small class="text-muted mb-0">Food and Beverage</small><br/>
+                      <span class="h2 font-weight-bold mb-0 text-primary" id="foodBev" >0</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-6">
+              <div class="card card-stats mb-4 mb-xl-0 rounded-0">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <small class="text-muted mb-0">Kitchen Appliances</small><br/>
+                      <span class="h2 font-weight-bold mb-0 text-primary" id="kitchenApp">0</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+			
+			<div class="col-xl-3 col-lg-6">
+              <div class="card card-stats mb-4 mb-xl-0 rounded-0">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <small class="text-muted mb-0">IT Equipment</small><br/>
+                      <span class="h2 font-weight-bold mb-0 text-primary" id="itEquip">0</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+			
+			<div class="col-xl-3 col-lg-6">
+              <div class="card card-stats mb-4 mb-xl-0 rounded-0">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <small class="text-muted mb-0">Shoes and Clothing</small><br/>
+                      <span class="h2 font-weight-bold mb-0 text-primary" id="shoesCloth">0</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+		  
+		 
+			<select class = 'bg-white' id = 'filterCategory' style = 'border: 1px solid #ddd !important;' onchange = 'filtercatChange()'>
+					<option>--Filter by Category--</option>
+					<option>See All</option>
+					<option>Food and Beverage</option>
+					<option>Kitchen Appliances</option>
+					<option>IT Equipment</option>
+					<option>Shoes and Clothing</option>
+				</select>
+		
+		  
+            <table class="table table-responsive ">
+               <thead class = 'text-center'>
+                  <tr>
+                     <th scope="col" class = "bg-primary text-white">Product ID</th>
+                     <th scope="col" class = "bg-primary text-white">Name</th>
+                     <th scope="col" class = "bg-primary text-white">Category</th>
+                     <th scope="col" class = "bg-primary text-white">Selling Price</th>
+                   </tr>
+               </thead>
+               <tbody id = "tbodyproducts" class = 'text-center'>
+				
+				<!-- THIS TABLE ROW WILL POPULATE DYNAMICALLY USING JAVASCRIPT -->
+				
+                 
+               </tbody>
+            </table>
+			
+	      </div>
+      </div>
+	</body>
+  <script>
+  function filtercatChange() {
+  var html2 = "";
+  var filterCategory = document.getElementById("filterCategory").value;
+
+  for (var i = 0; i < list.length; i++) {
+    if (filterCategory === list[i][3] || filterCategory === "See All") {
+      html2 +=
+        '<tr><td>' +
+        list[i][0] +
+        '</td> <td>' +
+        list[i][1] +
+        '</td> <td>' +
+        list[i][3] +
+        '</td> <td>' +
+        list[i][2] +
+        '</tr>';
+    }
+  }
+
+  document.getElementById("tbodyproducts").innerHTML = html2;
+}
+
+function render() {
+  var html = "";
+  var foodBev = 0;
+  var itEquip = 0;
+  var shoesCloth = 0;
+  var kitchenApp = 0;
+
+  for (var i = 0; i < list.length; i++) {
+    html +=
+      '<tr><td>' +
+      list[i][0] +
+      '</td> <td>' +
+      list[i][1] +
+      '</td> <td>' +
+      list[i][3] +
+      '</td> <td>' +
+      list[i][2] +
+      '</tr>';
+
+    if (list[i][3] === "Food and Beverage") {
+      foodBev += 1;
+    }
+    if (list[i][3] === "IT Equipment") {
+      itEquip += 1;
+    }
+    if (list[i][3] === "Shoes and Clothing") {
+      shoesCloth += 1;
+    }
+    if (list[i][3] === "Kitchen Appliances") {
+      kitchenApp += 1;
+    }
+  }
+
+  document.getElementById("tbodyproducts").innerHTML = html;
+  document.getElementById("prodID").value = "EVNT-DRV-" + a;
+  document.getElementById("foodBev").innerHTML = foodBev;
+  document.getElementById("itEquip").innerHTML = itEquip;
+  document.getElementById("shoesCloth").innerHTML = shoesCloth;
+  document.getElementById("kitchenApp").innerHTML = kitchenApp;
+}
+
+var a = 1;
+var list = [];
+
+function button() {
+  var prodIDField = document.getElementById("prodID");
+  var prodNameField = document.getElementById("prodName");
+  var sellpriceField = document.getElementById("sellprice");
+  var prodcategoryField = document.getElementById("prodcategory");
+
+  var prodID = prodIDField.value;
+  var prodName = prodNameField.value;
+  var sellprice = sellpriceField.value;
+  var prodcategory = prodcategoryField.value;
+
+  if (prodID && prodName && sellprice && prodcategory) {
+    if (prodcategory === "--Select Category--") {
+      alert("Please fill in all fields");
+      return false;
+    }
+
+    prodIDField.value = "EVNT-DRV-" + a;
+    a += 1;
+
+    list.push([prodID, prodName, sellprice, prodcategory]);
+    render();
+
+
+    prodNameField.value = "";
+    sellpriceField.value = "";
+    prodcategoryField.value = "--Select Category--";
+  } else {
+    alert("Please fill in all fields");
+    return false;
+  }
+}
+
+</script>
+	
+	<!-- INSERT YOUR CUSTOM JAVASCRIPT HERE -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</html>
